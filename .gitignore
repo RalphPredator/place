@@ -1,29 +1,60 @@
-*.log
-.DS_Store
+# Laravel Environment Files
 .env
+.env.*
 .env.backup
 .env.production
-.phpactor.json
-.phpunit.result.cache
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
-/auth.json
-/bootstrap/ssr
-/node_modules
-/public/build
-/public/hot
-/public/storage
+
+# Laravel Storage & Cache
+/storage/
+!/storage/.gitignore
 /storage/*.key
 /storage/pail
-/vendor
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Laravel Public Directory (builds, hot reload, etc.)
+/public/build/
+/public/hot
+/public/storage
+/public/mix-manifest.json
+/public/js/*
+/public/css/*
+
+# Compiled Bootstrap SSR files
+/bootstrap/ssr
+
+# Composer Dependencies
+/vendor/
+/composer.lock
+/auth.json
+
+# Node Modules & Frontend Dependencies
+/node_modules/
+/npm-debug.log
+/yarn-error.log
+/yarn.lock
+/package-lock.json
+
+# SQLite Databases
+/database/*.sqlite
+
+# IDE & Editor Directories
+/.idea/
+/.vscode/
+/.fleet/
+/.zed/
+/.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache
+/.nova
+
+# System Files
+*.log
+.DS_Store
+Thumbs.db
+
+# Homestead
 Homestead.json
 Homestead.yaml
-npm-debug.log
-Thumbs.db
-yarn-error.log
-composer.lock
-database/*.sqlite
