@@ -1,8 +1,10 @@
 <?php
 
+use App\Mail\ExceptionOccurredNotification;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Mail;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,5 +22,14 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->report(function (Throwable $e) {
+            // if (app()->isProduction()) {
+                try {
+                    Mail::to(env('MAIL_FROM_SUPPORT')) // ou une autre variable genre EXCEPTION_MAIL_TO
+                        ->send(new ExceptionOccurredNotification($e));
+                } catch (Throwable $mailError) {
+                    logger()->error("Erreur lors de l'envoi du mail d'exception : " . $mailError->getMessage());
+                }
+            // }
+        });
     })->create();
