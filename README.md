@@ -1,61 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# README – Application Laravel avec Docker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Cette documentation décrit comment installer, configurer et utiliser cette application Laravel, que ce soit pour le développement ou la production. Les instructions sont adaptées à un projet structuré avec un `Dockerfile` dans `docker/8.4` et un `docker-compose.yml` à la racine.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Prérequis communs
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Docker** (obligatoire pour développement et production)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Installation de Docker
 
-## Learning Laravel
+- **Linux** : Suivez la documentation officielle pour installer Docker Engine selon votre distribution (Ubuntu, Debian, CentOS, etc.).
+- **macOS/Windows** : Installez Docker Desktop depuis le site officiel.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Développement
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prérequis
 
-## Laravel Sponsors
+- Docker
+- PHP 8.4
+- Laravel Herd
+- Node.js
+- Composer
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Installation des outils
 
-### Premium Partners
+**1. Docker**  
+Voir section "Prérequis communs".
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+**2. PHP 8.4**  
+Sur Ubuntu :
 
-## Contributing
+```bash
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+sudo apt install php8.4 php8.4-zip php8.4-xml php8.4-gd php8.4-mysql php8.4-pgsql php8.4-intl php8.4-curl
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+**3. Laravel Herd**  
+Pour macOS, téléchargez Laravel Herd depuis le site officiel, ouvrez le fichier téléchargé et glissez l’application dans le dossier `/Applications`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Node.js**  
+Téléchargez la version LTS depuis le site officiel de Node.js et suivez les instructions d’installation pour votre système d’exploitation. Vérifiez l’installation avec :
 
-## Security Vulnerabilities
+```bash
+node -v
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+**5. Composer**  
+Pour Linux :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+composer
+```
+
+
+### Lancer l’environnement de développement
+
+1. Clonez le dépôt du projet.
+2. Placez-vous à la racine du projet.
+3. Lancez les conteneurs Docker sauf celui de l'application:
+
+```bash
+docker-compose up -d
+```
+
+4. Installez les dépendances PHP et JS :
+
+```bash
+composer install
+npm install
+```
+
+5. Lancer l'application :
+
+```bash
+npm run dev
+```
+
+Pour ceux n'ayant pas Herd installé, utilisé cette commande
+
+```bash
+composer run dev
+```
+---
+
+## Production
+
+### Prérequis
+
+- Docker
+
+### Installation de Docker
+
+Reportez-vous à la section "Prérequis communs".
+
+### Construction et déploiement de l’image
+
+**1. Construire l’image Docker**
+
+Placez-vous à la racine du projet (ou dans le dossier contenant le Dockerfile) et lancez :
+
+```bash
+docker build -f docker/8.3/Dockerfile -t mon-utilisateur/place:tag .
+```
+
+
+**2. Pousser l’image vers un registre Docker**
+
+Taggez l’image si besoin, puis poussez-la vers votre registre (Docker Hub, GitHub Container Registry, GitLab, etc.) :
+
+```bash
+docker push mon-utilisateur/place:tag
+```
+
+
+---
