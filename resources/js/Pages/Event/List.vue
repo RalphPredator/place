@@ -1,7 +1,7 @@
 <script setup>
 import NavLink from '@/Components/NavLink.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
     canLogin: {
@@ -16,13 +16,11 @@ defineProps({
     }
 });
 
-const openEvent = () => router.visit(route('event.list'))
-
 </script>
 
 <template>
 
-    <Head title="Welcome" />
+    <Head title="Event" />
     <div class="bg-gray-50 text-black/50 dark:bg-slate-900 dark:text-white/50">
         <div class="relative min-h-screen flex flex-col items-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -35,7 +33,7 @@ const openEvent = () => router.visit(route('event.list'))
                                 fill="currentColor" />
                         </svg>
                     </div>
-                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
+                    <nav class="-mx-3 flex flex-1 justify-end">
                         <Link v-if="$page.props.auth.user" :href="route('dashboard')"
                             class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                         Dashboard
@@ -102,101 +100,6 @@ const openEvent = () => router.visit(route('event.list'))
                             <div class="max-w-xl mx-auto text-center xl:max-w-2xl">
                                 <h2
                                     class="text-3xl font-bold leading-tight text-gray-50 dark:text-gray-200 sm:text-4xl xl:text-5xl mb-6">
-                                    The event experience starts here!
-                                </h2>
-                                <p class="mb-4">
-                                    Join us for an inspiring day filled with discoveries, connections, and unique
-                                    opportunities.
-                                </p>
-                            </div>
-
-                            <div
-                                class="grid max-w-4xl lg:max-w-6xl grid-cols-1 mx-auto mt-8 text-center gap-y-4 sm:gap-x-8 sm:grid-cols-2 lg:grid-cols-3 sm:mt-12 lg:mt-20 sm:text-left">
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Interactive
-                                            Workshops
-                                        </h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Take part in hands-on
-                                            workshops to
-                                            learn, create, and
-                                            collaborate in small groups.</p>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Inspiring Talks
-                                        </h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Renowned speakers
-                                            will share their
-                                            insights and
-                                            expertise on key topics.</p>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Networking
-                                            Sessions
-                                        </h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Connect with other
-                                            participants to
-                                            exchange ideas and
-                                            projects in a friendly atmosphere.</p>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Live Demos</h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Watch live
-                                            demonstrations of
-                                            innovative
-                                            projects and
-                                            engage directly with the creators.</p>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Relaxation &
-                                            Entertainment Area</h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Enjoy relaxing
-                                            moments between
-                                            activities with games,
-                                            music, and fun animations.</p>
-                                    </div>
-                                </div>
-
-                                <div class="overflow-hidden bg-white dark:bg-slate-800 shadow-md rounded-xl">
-                                    <div class="p-9">
-                                        <h3 class="mt-6 text-2xl font-bold text-gray-900 dark:text-gray-300 sm:mt-10">
-                                            Collaborative
-                                            Roundtables</h3>
-                                        <p class="mt-6 text-base text-gray-600 dark:text-gray-300">Discuss current
-                                            themes with experts
-                                            and
-                                            attendees in an
-                                            open and participatory format.</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="mt-[80px] py-12 dark:bg-gray-900 dark:text-gray-200 sm:py-12 lg:py-16">
-                        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                            <div class="max-w-xl mx-auto text-center xl:max-w-2xl">
-                                <h2
-                                    class="text-3xl font-bold leading-tight text-gray-50 dark:text-gray-200 sm:text-4xl xl:text-5xl mb-6">
                                     The last events upcoming
                                 </h2>
                             </div>
@@ -234,14 +137,6 @@ const openEvent = () => router.visit(route('event.list'))
                                 </article>
 
                             </div>
-                            <div class="">
-                                <button type="button" @click="openEvent"
-                                    class="flex items-center rounded-full border border-gray-300 bg-secondary-50 dark:bg-slate-200 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100">
-                                    <i class="mr-1 h-4 w-4 bi bi-chevron-down"></i>
-                                    View More
-                                </button>
-                            </div>
-
                         </div>
                     </section>
 

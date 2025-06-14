@@ -23,6 +23,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreignUuid('user_id');
+            $table->foreignUuid('category_id');
 
         });
     }

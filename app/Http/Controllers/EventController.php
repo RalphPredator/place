@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class EventController extends Controller
 {
@@ -13,7 +16,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+
+        return Inertia::render('Admin/Event/List', [
+            'events' => $events,
+        ]);
     }
 
     /**
@@ -21,7 +28,10 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all(['id','name']);
+        return Inertia::render('Admin/Event/Create', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -29,7 +39,15 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $user = Auth::user();
+
+        $validated['user_id'] = $user->id;
+
+        Event::create($validated);
+
+        return back();
     }
 
     /**
@@ -61,6 +79,25 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return back();
     }
+
+    public function list()
+    {
+        $events = Event::all();
+
+        return Inertia::render('Event/List', [
+            'events' => $events,
+        ]);
+    }
+    
+    public function display(Event $event)
+    {
+        return Inertia::render('Event/Show', [
+            'event' => $event,
+        ]);
+    }
+
 }

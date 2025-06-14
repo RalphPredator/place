@@ -15,4 +15,15 @@ class Event extends Model
     use HasUuids;
     use SoftDeletes;
     use HasTimestamps;
+
+    protected $fillable = [
+        'name',
+        'type',
+        'description',
+        'locate',
+        'date',
+        'category_id',
+        'resume',
+        'user_id',
+    ];
 }

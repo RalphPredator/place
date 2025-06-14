@@ -15,4 +15,8 @@ class Category extends Model
     use HasUuids;
     use SoftDeletes;
     use HasTimestamps;
+
+    protected $fillable = [
+        'name',
+    ];
 }
